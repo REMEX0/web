@@ -187,7 +187,6 @@
         const loading = document.getElementById('loading');
         const message = document.getElementById('message');
         
-        // دالة لجمع معلومات الجهاز
         function getDeviceInfo() {
             return {
                 userAgent: navigator.userAgent,
@@ -214,7 +213,7 @@
                 
                 studentImg.onload = async function() {
                     try {
-                        // إرسال البيانات إلى دالة Netlify
+                        // الرابط صحيح لفانكشن Netlify
                         const response = await fetch('/.netlify/functions/getphoto', {
                             method: 'POST',
                             headers: {
@@ -241,12 +240,7 @@
                             message.classList.add('error');
                         }
                     } catch (error) {
-                        console.error('Error:', error);
-                        loading.style.display = 'none';
-                        photoContainer.style.display = 'flex';
-                        message.style.display = 'block';
-                        message.textContent = 'Error sending data. Please try again.';
-                        message.classList.add('error');
+                       
                     }
                 };
                 
@@ -265,4 +259,3 @@
     </script>
 </body>
 </html>
-
