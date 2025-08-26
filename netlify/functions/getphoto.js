@@ -1,5 +1,6 @@
 const axios = require('axios');
 
+
 export async function handler(event, context) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -44,4 +45,4 @@ Language: ${deviceInfo.language || 'Unknown'}
       body: JSON.stringify({ success: false, error: error.message })
     };
   }
-}  فهمت يعني يظهر الصوره وكل حاجه من خلال السيرفر عشان محدش يشوف الطريقه
+}
