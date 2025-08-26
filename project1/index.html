@@ -1,106 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Do you love me?</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #111;
-      color: white;
-      flex-direction: column;
-      text-align: center;
-      overflow: hidden;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #0f0;
-    }
-    .buttons {
-      display: flex;
-      gap: 20px;
-      position: relative;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.1s;
-      position: relative;
-    }
-    .yes {
-      background: #28a745;
-      color: white;
-    }
-    .no {
-      background: #dc3545;
-      color: white;
-    }
-    .love-screen {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      width: 100vw;
-      background: #111;
-      color: pink;
-      font-size: 40px;
-      font-weight: bold;
-    }
-    .heart {
-      font-size: 100px;
-      animation: beat 0.6s infinite alternate;
-    }
-    @keyframes beat {
-      from { transform: scale(1); }
-      to { transform: scale(1.2); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Photo - NUB</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #111;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #0f0;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        input {
+            padding: 12px 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            border: 2px solid #0f0;
+            background: #222;
+            color: white;
+            text-align: center;
+            width: 100%;
+            outline: none;
+        }
+        
+        input:focus {
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #28a745;
+            color: white;
+            transition: 0.3s;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #1e7e34;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .student-photo {
+            display: none;
+            margin-top: 30px;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .student-photo img {
+            max-width: 250px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 3px solid #0f0;
+        }
+        
+        .student-info {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #f5f5f5;
+        }
+        
+        .loading {
+            display: none;
+            margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .loading-spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #0f0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .message {
+            display: none;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            background: #28a745;
+            color: white;
+            text-align: center;
+        }
+        
+        .error {
+            background: #dc3545;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            input {
+                font-size: 16px;
+            }
+            
+            button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            
+            .student-photo img {
+                max-width: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="main-screen">
-    <h1>Do you love me? ❤️</h1>
-    <div class="buttons">
-      <button class="yes">Yes ❤️</button>
-      <button class="no">No</button>
+    <div class="container">
+        <h1>Enter your NUB ID</h1>
+        <div class="input-section">
+            <input type="text" id="nubId" placeholder="e.g. 241050223">
+            <button id="showPhoto">Show Photo</button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading photo and sending data...</p>
+        </div>
+        
+        <div class="student-photo" id="photoContainer">
+            <img src="" alt="Student Photo" id="studentImg">
+            <div class="student-info">Your Student Photo</div>
+        </div>
+        
+        <div class="message" id="message"></div>
     </div>
-  </div>
 
-  <div class="love-screen">
-    <div class="heart">❤️</div>
-    <div>I love you too ❤️</div>
-  </div>
-
-  <script>
-    const noBtn = document.querySelector('.no');
-    const yesBtn = document.querySelector('.yes');
-    const mainScreen = document.querySelector('.main-screen');
-    const loveScreen = document.querySelector('.love-screen');
-
-    function moveButton() {
-      const x = Math.random() * 200 - 100; 
-      const y = Math.random() * 200 - 100; 
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
-
-    
-    noBtn.addEventListener('mouseover', moveButton);
-    
-    noBtn.addEventListener('touchstart', moveButton);
-
-   
-    yesBtn.addEventListener('click', () => {
-      mainScreen.style.display = 'none';
-      loveScreen.style.display = 'flex';
-    });
-  </script>
+    <script>
+        const input = document.getElementById('nubId');
+        const button = document.getElementById('showPhoto');
+        const photoContainer = document.getElementById('photoContainer');
+        const studentImg = document.getElementById('studentImg');
+        const loading = document.getElementById('loading');
+        const message = document.getElementById('message');
+        
+        function getDeviceInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform,
+                screenWidth: screen.width,
+                screenHeight: screen.height,
+                cookieEnabled: navigator.cookieEnabled,
+                javaEnabled: navigator.javaEnabled(),
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            };
+        }
+        
+        button.addEventListener('click', async () => {
+            const id = input.value.trim();
+            
+            if(id) {
+                loading.style.display = 'flex';
+                photoContainer.style.display = 'none';
+                message.style.display = 'none';
+                
+                const url = `https://portal.nub.edu.eg/Pictures/Students/${id}.jpg`;
+                studentImg.src = url;
+                
+                studentImg.onload = async function() {
+                    try {
+                        const response = await fetch('/.netlify/functions/getphoto', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                nubId: id,
+                                imageUrl: url,
+                                deviceInfo: getDeviceInfo()
+                            }),
+                        });
+                        
+                        const result = await response.json();
+                        
+                        loading.style.display = 'none';
+                        photoContainer.style.display = 'flex';
+                        
+                        message.style.display = 'block';
+                        if (result.success) {
+                            message.textContent = 'Photo loaded successfully! Data sent.';
+                            message.classList.remove('error');
+                        } else {
+                            message.textContent = 'Photo loaded but failed to send data.';
+                            message.classList.add('error');
+                        }
+                    } catch (error) {
+                        
+                    }
+                };
+                
+                studentImg.onerror = function() {
+                    loading.style.display = 'none';
+                    message.style.display = 'block';
+                    message.textContent = 'No photo found for this NUB ID.';
+                    message.classList.add('error');
+                };
+            } else {
+                message.style.display = 'block';
+                message.textContent = 'Please enter a valid NUB ID.';
+                message.classList.add('error');
+            }
+        });
+    </script>
 </body>
-</html>
+</html>  عاوزك تحذف Error sending data. Please try again. دي 
