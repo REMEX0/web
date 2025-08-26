@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ahmed Hany | Portfolio</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ===== General Styles ===== */
+    body {
+      font-family: "Arial", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0d0d0d;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #1db954;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    h1, h2 {
+      margin: 0 0 15px;
+      font-weight: bold;
+    }
+
+    /* ===== Header ===== */
+    header {
+      background: linear-gradient(135deg, #000, #1a1a1a);
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+    header h1 {
+      font-size: 48px;
+      color: #1db954;
+    }
+    header p {
+      font-size: 20px;
+      color: #ccc;
+    }
+
+    /* ===== Sections ===== */
+    section {
+      padding: 50px 20px;
+      max-width: 900px;
+      width: 90%;
+      margin: auto;
+      border-bottom: 1px solid #222;
+      animation: fadeInUp 1.5s ease;
+    }
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #1db954;
+      border-left: 5px solid #1db954;
+      padding-left: 10px;
+    }
+
+    /* ===== Skills ===== */
+    ul.skills {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+    ul.skills li {
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    ul.skills li i {
+      font-size: 50px;
+      display: block;
+      margin-bottom: 10px;
+      transition: transform 0.3s, color 0.3s;
+    }
+    ul.skills li span {
+      font-size: 16px;
+      color: #ccc;
+    }
+    ul.skills li:hover i {
+      transform: scale(1.2);
+      color: inherit;
+    }
+
+    /* ===== Projects ===== */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .project {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+      text-align: center;
+    }
+    .project:hover { transform: translateY(-8px); }
+    .project a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #1db954;
+      color: #000;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .project a:hover { background: #17a444; }
+
+    /* ===== Contact ===== */
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #1db954;
+      color: #000;
+      border-radius: 25px;
+      transition: background 0.3s;
+    }
+    .contact a:hover { background: #17a444; }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background: #111;
+      margin-top: 30px;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      header h1 { font-size: 40px; }
+      header p { font-size: 18px; }
+      section h2 { font-size: 28px; }
+      ul.skills li i { font-size: 45px; }
+      ul.skills li span { font-size: 15px; }
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 32px; }
+      header p { font-size: 16px; }
+      section h2 { font-size: 24px; }
+      ul.skills li i { font-size: 40px; }
+      ul.skills li span { font-size: 14px; }
+
+      .projects { grid-template-columns: 1fr; }
+      .contact a { display: block; width: 80%; margin: 10px auto; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <h1>Hi, I'm Ahmed Hany 👋</h1>
+    <p>Student at Nahda University | Future Developer 🚀</p>
+  </header>
+
+  <!-- ===== About ===== -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I'm a student at Nahda University, passionate about technology, programming,
+      and building cool projects. I enjoy learning new skills and working on 
+      real-world applications.
+    </p>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="skills">
+      <li><i class="fa-brands fa-python" style="color:#3776AB;"></i><span>Python</span></li>
+      <li><i class="fa-brands fa-js" style="color:#f7df1e;"></i><span>JavaScript</span></li>
+      <li><i class="fa-solid fa-code" style="color:#9b59b6;"></i><span>C#</span></li>
+      <li><i class="fa-brands fa-html5" style="color:#e34f26;"></i><span>HTML5</span></li>
+      <li><i class="fa-brands fa-css3-alt" style="color:#264de4;"></i><span>CSS3</span></li>
+      <li><i class="fa-solid fa-shield-halved" style="color:#1db954;"></i><span>Cybersecurity</span></li>
+    </ul>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>Reverse Engineering</h3>
+        <p>Experience in reverse engineering Android applications.</p>
+      </div>
+      <div class="project">
+        <h3>Telegram Bots</h3>
+        <p>Developed Telegram bots using Python to automate tasks and provide services.</p>
+      </div>
+      <div class="project">
+        <h3>Web Development</h3>
+        <p>Building responsive websites with HTML, CSS, and JavaScript.</p>
+      </div>
+      <div class="project">
+        <h3>Student Management System</h3>
+        <p>A desktop application built with C# for managing students data.</p>
+      </div>
+      <div class="project">
+        <h3>Personal Portfolio</h3>
+        <p>This website! Built with HTML & CSS.</p>
+      </div>
+      <div class="project">
+        <h3>Cybersecurity Practice</h3>
+        <p>Learning ethical hacking basics and web security testing.</p>
+      </div>
+      <div class="project">
+        <h3>Funny Project</h3>
+        <a href="project1/index.html">Open Project 1</a>
+      </div>
+      <div class="project">
+        <h3>GET PIC NUB  BY ID </h3>
+        <a href="project2/index.html">Open Project 2</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact">
+      <a href="https://t.me/AX_J2" target="_blank">Telegram</a>
+      <a href="https://wa.me/201127278321" target="_blank">WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>© 2025 Ahmed Hany | All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

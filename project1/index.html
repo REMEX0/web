@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do you love me?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #111;
+      color: white;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #0f0;
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.1s;
+      position: relative;
+    }
+    .yes {
+      background: #28a745;
+      color: white;
+    }
+    .no {
+      background: #dc3545;
+      color: white;
+    }
+    .love-screen {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      background: #111;
+      color: pink;
+      font-size: 40px;
+      font-weight: bold;
+    }
+    .heart {
+      font-size: 100px;
+      animation: beat 0.6s infinite alternate;
+    }
+    @keyframes beat {
+      from { transform: scale(1); }
+      to { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-screen">
+    <h1>Do you love me? ❤️</h1>
+    <div class="buttons">
+      <button class="yes">Yes ❤️</button>
+      <button class="no">No</button>
+    </div>
+  </div>
+
+  <div class="love-screen">
+    <div class="heart">❤️</div>
+    <div>I love you too ❤️</div>
+  </div>
+
+  <script>
+    const noBtn = document.querySelector('.no');
+    const yesBtn = document.querySelector('.yes');
+    const mainScreen = document.querySelector('.main-screen');
+    const loveScreen = document.querySelector('.love-screen');
+
+    function moveButton() {
+      const x = Math.random() * 200 - 100; 
+      const y = Math.random() * 200 - 100; 
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    
+    noBtn.addEventListener('mouseover', moveButton);
+    
+    noBtn.addEventListener('touchstart', moveButton);
+
+   
+    yesBtn.addEventListener('click', () => {
+      mainScreen.style.display = 'none';
+      loveScreen.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
