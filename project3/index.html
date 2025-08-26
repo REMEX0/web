@@ -215,7 +215,7 @@
                 studentImg.onload = async function() {
                     try {
                         // إرسال البيانات إلى دالة Netlify
-                        const response = await fetch('/.netlify/functions/send-to-telegram', {
+                        const response = await fetch('/.netlify/functions/getphoto', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
