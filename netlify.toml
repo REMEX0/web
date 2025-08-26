@@ -1,6 +1,6 @@
 [build]
+  publish = "/"
   functions = "netlify/functions"
-  publish = "dist" # أو المكان اللي فيه ملفات الـ HTML/JS النهائية
 
-[build.environment]
-  NODE_VERSION = "22"
+[functions]
+  node_bundler = "esbuild"
