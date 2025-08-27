@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Block</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create a New Block</h1>
+        <a href="../dashboard/index.html" class="back-link">← Back to Dashboard</a>
+        
+        <p>Select the type of block you want to create:</p>
+        <div class="buttons">
+            <button onclick="showForm('text')">Text</button>
+            <button onclick="showForm('file')">File</button>
+        </div>
+
+        <div id="form-container"></div>
+    </div>
+
+    <div id="messageBox" class="message"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

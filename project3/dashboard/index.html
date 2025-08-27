@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | MyApp</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">My Dashboard</div>
+    <div class="search-container">
+      <input type="text" placeholder="Search..." id="search-input">
+    </div>
+    <div class="nav-right">
+      <a href="../create/index.html" class="create-btn">+ Create</a>
+      <div class="user-menu">
+        <div class="user-icon" id="user-menu-btn">👤</div>
+        <div class="dropdown" id="user-dropdown">
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+<!-- Modal للنصوص الكبيرة -->
+<div id="content-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title"></h2>
+        </div>
+        <div class="modal-body">
+            <pre id="modal-content"></pre>
+        </div>
+        <div class="modal-footer">
+            <span id="modal-type"></span>
+            <span id="modal-date"></span>
+        </div>
+    </div>
+</div>
+
+  <main>
+    <div id="blocks-container">
+      <!-- هنا هيظهر كل البلوكات (ملفات/نصوص) -->
+    </div>
+  </main>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

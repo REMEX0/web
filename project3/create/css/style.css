@@ -1,0 +1,180 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    margin: 0;
+    padding: 0;
+    color: #e0e0e0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #00ff88;
+    text-align: center;
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #00ff88;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    color: #00cc6a;
+    text-decoration: underline;
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #ccc;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+button {
+    background: #00ff88;
+    color: #121212;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #00cc6a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,255,136,0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+input, textarea, select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    font-size: 14px;
+    background: #2b2b2b;
+    color: #f1f1f1;
+    outline: none;
+    transition: border 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+    border: 1px solid #00ff88;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-btn {
+    background: #00ff88;
+    color: #121212;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+.submit-btn:hover {
+    background: #00cc6a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,255,136,0.3);
+}
+
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: -350px; /* يبدأ بره الشاشة */
+    background: #1f2937; /* أسود غامق */
+    color: #10b981; /* أخضر */
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    right: 20px; /* يدخل الشاشة */
+    opacity: 1;
+}
+
+/* نضيف ستايل للرسايل */
+.message {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: 500;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.message.info {
+    background: #1f2937;
+    color: #10b981;
+    border: 1px solid #10b981;
+}
+
+.message.error {
+    background: #1f2937;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+.message.success {
+    background: #1f2937;
+    color: #10b981;
+    border: 1px solid #10b981;
+}
+
+/* نحسن شوية في الفورم */
+form {
+    background: #252525;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #00ff88;
+}

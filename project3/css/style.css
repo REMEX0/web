@@ -1,0 +1,89 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
+  margin: 0;
+  padding: 0;
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 {
+  text-align: center;
+  color: #00ff88;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  font-size: 14px;
+  background: #2b2b2b;
+  color: #f1f1f1;
+  outline: none;
+  transition: border 0.2s;
+}
+
+input:focus {
+  border: 1px solid #00ff88;
+}
+
+button {
+  background: #00ff88;
+  color: #121212;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #00cc6a;
+  transform: translateY(-2px);
+}
+
+p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+a {
+  color: #00ff88;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#register-form {
+  display: none;
+}
+
+.form-toggle {
+  text-align: center;
+  margin-top: 15px;
+  cursor: pointer;
+  color: #00ff88;
+}
