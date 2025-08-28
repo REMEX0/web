@@ -8,7 +8,7 @@ exports.handler = async function(event, context) {
     try {
         const { action, email, password } = JSON.parse(event.body);
         const MONGODB_URI = "mongodb+srv://stararmx_db_user:mOJAN8MDZCrYeoAj@cluster0.kvpxrlu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";;
-        const DB_NAME = process.env.DB_NAME || 'myapp';
+        const DB_NAME = process.env.DB_NAME || 'stararmx_db_user';
         
         if (!MONGODB_URI) {
             throw new Error('MongoDB connection string not found');
@@ -73,3 +73,4 @@ exports.handler = async function(event, context) {
     }
 
 };
+
