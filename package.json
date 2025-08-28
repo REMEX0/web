@@ -1,9 +1,9 @@
 {
-  "name": "ss",
+  "name": "my-netlify-app",
   "version": "1.0.0",
-  "description": "My App with Netlify Functions",
+  "main": "index.js",
   "dependencies": {
-    "mongodb": "^4.17.0",
-    "axios": "^1.6.0"
+    "axios": "^1.7.0",
+    "mongodb": "^6.5.0"
   }
 }
