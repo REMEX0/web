@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        window.location.href = 'dashboard/index.html';
+        return;
+    }
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const toggleForm = document.getElementById('toggle-form');

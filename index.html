@@ -5,167 +5,7 @@
   <title>Ahmed Hany | Portfolio</title>
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* ===== General Styles ===== */
-    body {
-      font-family: "Arial", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #0d0d0d;
-      color: #f5f5f5;
-      line-height: 1.6;
-    }
-
-    a {
-      color: #1db954;
-      text-decoration: none;
-    }
-    a:hover { text-decoration: underline; }
-
-    h1, h2 {
-      margin: 0 0 15px;
-      font-weight: bold;
-    }
-
-    /* ===== Header ===== */
-    header {
-      background: linear-gradient(135deg, #000, #1a1a1a);
-      padding: 60px 20px;
-      text-align: center;
-      animation: fadeIn 1.5s ease;
-    }
-    header h1 {
-      font-size: 48px;
-      color: #1db954;
-    }
-    header p {
-      font-size: 20px;
-      color: #ccc;
-    }
-
-    /* ===== Sections ===== */
-    section {
-      padding: 50px 20px;
-      max-width: 900px;
-      width: 90%;
-      margin: auto;
-      border-bottom: 1px solid #222;
-      animation: fadeInUp 1.5s ease;
-    }
-    section h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #1db954;
-      border-left: 5px solid #1db954;
-      padding-left: 10px;
-    }
-
-    /* ===== Skills ===== */
-    ul.skills {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-    }
-    ul.skills li {
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    ul.skills li i {
-      font-size: 50px;
-      display: block;
-      margin-bottom: 10px;
-      transition: transform 0.3s, color 0.3s;
-    }
-    ul.skills li span {
-      font-size: 16px;
-      color: #ccc;
-    }
-    ul.skills li:hover i {
-      transform: scale(1.2);
-      color: inherit;
-    }
-
-    /* ===== Projects ===== */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .project {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: transform 0.3s;
-      text-align: center;
-    }
-    .project:hover { transform: translateY(-8px); }
-    .project a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
-      background: #1db954;
-      color: #000;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .project a:hover { background: #17a444; }
-
-    /* ===== Contact ===== */
-    .contact a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: #1db954;
-      color: #000;
-      border-radius: 25px;
-      transition: background 0.3s;
-    }
-    .contact a:hover { background: #17a444; }
-
-    /* ===== Footer ===== */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      background: #111;
-      margin-top: 30px;
-    }
-
-    /* ===== Animations ===== */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 900px) {
-      header h1 { font-size: 40px; }
-      header p { font-size: 18px; }
-      section h2 { font-size: 28px; }
-      ul.skills li i { font-size: 45px; }
-      ul.skills li span { font-size: 15px; }
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 32px; }
-      header p { font-size: 16px; }
-      section h2 { font-size: 24px; }
-      ul.skills li i { font-size: 40px; }
-      ul.skills li span { font-size: 14px; }
-
-      .projects { grid-template-columns: 1fr; }
-      .contact a { display: block; width: 80%; margin: 10px auto; text-align: center; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
@@ -234,8 +74,12 @@
         <a href="project1/index.html">Open Project 1</a>
       </div>
       <div class="project">
-        <h3>GET PIC NUB  BY ID </h3>
+        <h3>Get Pic NUB By Id </h3>
         <a href="project2/index.html">Open Project 2</a>
+      </div>
+      <div class="project">
+        <h3>Project 3 </h3>
+        <a href="project3/index.html">Open Project 3</a>
       </div>
     </div>
   </section>
