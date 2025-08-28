@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadBlocks() {
     const blocksContainer = document.getElementById('blocks-container');
     
-    // نجيب اليوزر الحالي
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
         window.location.href = '../index.html';
@@ -20,7 +19,6 @@ async function loadBlocks() {
     }
     
     try {
-        // جلب البلوكات من السيرفر
         const response = await fetch(`/.netlify/functions/blocks?email=${encodeURIComponent(currentUser.email)}`);
         const result = await response.json();
         
@@ -43,33 +41,14 @@ async function loadBlocks() {
                 blocksContainer.appendChild(blockElement);
             });
         } else {
-            showToast('Error loading blocks');
+            showToast(result.message || 'Error loading blocks');
         }
     } catch (error) {
         console.error('Error loading blocks:', error);
-        showToast('Network error. Using local data.');
-        
-        // Fallback إلى localStorage إذا ال API فشل
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-        const userBlocks = users[currentUser.email]?.blocks || [];
-        
-        if (userBlocks.length === 0) {
-            blocksContainer.innerHTML = `
-                <div class="empty-state">
-                    <h3>No blocks yet</h3>
-                    <p>Click on "Create" to create your first block</p>
-                </div>
-            `;
-            return;
-        }
-        
-        blocksContainer.innerHTML = '';
-        userBlocks.forEach(block => {
-            const blockElement = createBlockElement(block);
-            blocksContainer.appendChild(blockElement);
-        });
+        showToast('Cannot load blocks from server.');
     }
 }
+
 
 
 
@@ -283,27 +262,18 @@ async function deleteBlock(blockId) {
             const result = await response.json();
             
             if (result.success) {
-                loadBlocks(); // إعادة تحميل البلوكات
+                loadBlocks();
                 showToast('Block deleted successfully');
             } else {
-                showToast('Error deleting block: ' + result.message);
+                showToast(result.message || 'Error deleting block');
             }
         } catch (error) {
             console.error('Delete block error:', error);
-            showToast('Network error. Please try again.');
-            
-            // Fallback إلى localStorage إذا ال API فشل
-            const users = JSON.parse(localStorage.getItem('users')) || {};
-            
-            if (users[currentUser.email]) {
-                users[currentUser.email].blocks = users[currentUser.email].blocks.filter(b => b.id !== blockId);
-                localStorage.setItem('users', JSON.stringify(users));
-                loadBlocks(); // إعادة تحميل البلوكات
-                showToast('Block deleted successfully');
-            }
+            showToast('Server error. Please try again.');
         }
     }
 }
+
 
 
 // تنسيق التاريخ
@@ -493,4 +463,5 @@ function checkExpiredBlocks() {
 function startExpiryChecker() {
     checkExpiredBlocks(); // فحص أولي
     setInterval(checkExpiredBlocks, 60000); // فحص كل دقيقة
+
 }
