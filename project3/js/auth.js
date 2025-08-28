@@ -1,4 +1,3 @@
-// auth.js
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -18,18 +17,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // تسجيل الدخول
-    loginForm.addEventListener('submit', function(e) {
+    loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = this.querySelector('input[type="email"]').value;
         const password = this.querySelector('input[type="password"]').value;
         
-        // تسجيل الدخول
-        loginUser(email, password);
+        // تسجيل الدخول عبر API
+        try {
+            const response = await fetch('/.netlify/functions/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: 'login',
+                    email,
+                    password
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // حفظ المستخدم الحالي في localStorage
+                localStorage.setItem('currentUser', JSON.stringify({ email }));
+                window.location.href = './dashboard/index.html';
+            } else {
+                alert(result.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Network error. Please try again.');
+        }
     });
     
     // تسجيل مستخدم جديد
-    registerForm.addEventListener('submit', function(e) {
+    registerForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = this.querySelector('input[type="email"]').value;
@@ -41,62 +65,33 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // تسجيل مستخدم جديد
-        if (registerUser(email, password)) {
-            alert('Registration successful! You are now logged in.');
-            window.location.href = './dashboard/index.html';
+        // تسجيل مستخدم جديد عبر API
+        try {
+            const response = await fetch('/.netlify/functions/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: 'register',
+                    email,
+                    password
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // حفظ المستخدم الحالي في localStorage
+                localStorage.setItem('currentUser', JSON.stringify({ email }));
+                alert('Registration successful! You are now logged in.');
+                window.location.href = './dashboard/index.html';
+            } else {
+                alert(result.message || 'Registration failed');
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Network error. Please try again.');
         }
     });
 });
-
-// دالة تسجيل الدخول
-function loginUser(email, password) {
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-    
-    // التحقق من وجود المستخدم وكلمة المرور
-    if (users[email] && users[email].password === password) {
-        // حفظ المستخدم الحالي في localStorage
-        localStorage.setItem('currentUser', JSON.stringify({ email }));
-        
-        // التوجيه إلى لوحة التحكم
-        window.location.href = './dashboard/index.html';
-    } else {
-        alert('Invalid email or password');
-    }
-}
-
-// دالة تسجيل مستخدم جديد
-function registerUser(email, password) {
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-    
-    // التحقق من وجود المستخدم مسبقاً
-    if (users[email]) {
-        alert('User already exists');
-        return false;
-    }
-    
-    // إنشاء مستخدم جديد
-    users[email] = {
-        password: password,
-        blocks: []
-    };
-    
-    // الحفظ في localStorage
-    localStorage.setItem('users', JSON.stringify(users));
-    
-    // تسجيل الدخول تلقائياً بعد التسجيل
-    localStorage.setItem('currentUser', JSON.stringify({ email }));
-    
-    return true;
-}
-
-// دالة التحقق من المستخدم الحالي
-function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser'));
-}
-
-// دالة تسجيل الخروج
-function logoutUser() {
-    localStorage.removeItem('currentUser');
-    window.location.href = '../index.html';
-}

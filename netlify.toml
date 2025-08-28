@@ -5,6 +5,18 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# إعدادات البيئة - استبدل اسم_قاعدة_البيانات_الخاصة_بك باسم قاعدة البيانات الفعلي
+[context.production.environment]
+  MONGODB_URI = "mongodb+srv://stararmx_db_user:mOJAN8MDZCrYeoAj@cluster0.kvpxrlu.mongodb.net/myapp?retryWrites=true&w=majority&appName=Cluster0"
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+
+# قواعد إعادة التوجيه
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -16,6 +28,38 @@
   status = 200
 
 [[redirects]]
+  from = "/dashboard/*"
+  to = "/dashboard/index.html"
+  status = 200
+
+[[redirects]]
   from = "/create"
   to = "/create/index.html"
   status = 200
+
+[[redirects]]
+  from = "/create/*"
+  to = "/create/index.html"
+  status = 200
+
+# رؤوس الأمان
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# إعدادات معالجة Forms
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"

@@ -8,30 +8,71 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // تحميل البلوكات
-function loadBlocks() {
-  const blocksContainer = document.getElementById('blocks-container');
-  
-  // نجيب اليوزر الحالي
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  if (!currentUser) {
-    window.location.href = '../index.html';
-    return;
-  }
-  
-  // نجيب بيانات اليوزر
-  const users = JSON.parse(localStorage.getItem('users')) || {};
-  const userBlocks = users[currentUser.email]?.blocks || [];
-  
-  if (userBlocks.length === 0) {
-    blocksContainer.innerHTML = `
-      <div class="empty-state">
-        <h3>No blocks yet</h3>
-        <p>Click on "Create" to create your first block</p>
-      </div>
-    `;
-    return;
-  }
-  
+// تحميل البلوكات من السيرفر
+async function loadBlocks() {
+    const blocksContainer = document.getElementById('blocks-container');
+    
+    // نجيب اليوزر الحالي
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        window.location.href = '../index.html';
+        return;
+    }
+    
+    try {
+        // جلب البلوكات من السيرفر
+        const response = await fetch(`/.netlify/functions/blocks?email=${encodeURIComponent(currentUser.email)}`);
+        const result = await response.json();
+        
+        if (result.success) {
+            const userBlocks = result.blocks || [];
+            
+            if (userBlocks.length === 0) {
+                blocksContainer.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No blocks yet</h3>
+                        <p>Click on "Create" to create your first block</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            blocksContainer.innerHTML = '';
+            userBlocks.forEach(block => {
+                const blockElement = createBlockElement(block);
+                blocksContainer.appendChild(blockElement);
+            });
+        } else {
+            showToast('Error loading blocks');
+        }
+    } catch (error) {
+        console.error('Error loading blocks:', error);
+        showToast('Network error. Using local data.');
+        
+        // Fallback إلى localStorage إذا ال API فشل
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const userBlocks = users[currentUser.email]?.blocks || [];
+        
+        if (userBlocks.length === 0) {
+            blocksContainer.innerHTML = `
+                <div class="empty-state">
+                    <h3>No blocks yet</h3>
+                    <p>Click on "Create" to create your first block</p>
+                </div>
+            `;
+            return;
+        }
+        
+        blocksContainer.innerHTML = '';
+        userBlocks.forEach(block => {
+            const blockElement = createBlockElement(block);
+            blocksContainer.appendChild(blockElement);
+        });
+    }
+}
+
+
+
   blocksContainer.innerHTML = '';
   
   userBlocks.forEach(block => {
@@ -223,19 +264,47 @@ function increaseViewCount(blockId) {
 }
 
 // حذف البلوك
-function deleteBlock(blockId) {
-  if (confirm('Are you sure you want to delete this block?')) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-    
-    if (users[currentUser.email]) {
-      users[currentUser.email].blocks = users[currentUser.email].blocks.filter(b => b.id !== blockId);
-      localStorage.setItem('users', JSON.stringify(users));
-      loadBlocks(); // إعادة تحميل البلوكات
-      showToast('Block deleted successfully');
+async function deleteBlock(blockId) {
+    if (confirm('Are you sure you want to delete this block?')) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        try {
+            const response = await fetch('/.netlify/functions/blocks', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: currentUser.email,
+                    blockId: blockId
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                loadBlocks(); // إعادة تحميل البلوكات
+                showToast('Block deleted successfully');
+            } else {
+                showToast('Error deleting block: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Delete block error:', error);
+            showToast('Network error. Please try again.');
+            
+            // Fallback إلى localStorage إذا ال API فشل
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+            
+            if (users[currentUser.email]) {
+                users[currentUser.email].blocks = users[currentUser.email].blocks.filter(b => b.id !== blockId);
+                localStorage.setItem('users', JSON.stringify(users));
+                loadBlocks(); // إعادة تحميل البلوكات
+                showToast('Block deleted successfully');
+            }
+        }
     }
-  }
 }
+
 
 // تنسيق التاريخ
 function formatDate(dateString) {

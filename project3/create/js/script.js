@@ -134,7 +134,7 @@ function previewFile(file) {
     reader.readAsDataURL(file);
 }
 
-function handleSubmit(event, type) {
+async function handleSubmit(event, type) {
     event.preventDefault();
     
     // التحقق من تسجيل الدخول
@@ -161,12 +161,34 @@ function handleSubmit(event, type) {
         
         // للنصوص فقط
         const newBlock = createBlockObject(type, title, content, expiry, token);
-        saveBlockToUser(currentUser, newBlock);
         
-        showToast('Text block created successfully! ✅');
-        setTimeout(() => {
-            window.location.href = '../dashboard/index.html';
-        }, 2000);
+        // حفظ البلوك عبر API
+        try {
+            const response = await fetch('/.netlify/functions/blocks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: currentUser.email,
+                    block: newBlock
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showToast('Text block created successfully! ✅');
+                setTimeout(() => {
+                    window.location.href = '../dashboard/index.html';
+                }, 2000);
+            } else {
+                showToast('Error creating block: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Create block error:', error);
+            showToast('Network error. Please try again.');
+        }
     } else {
         const fileInput = document.getElementById('block-file');
         const file = fileInput.files[0];
@@ -187,7 +209,7 @@ function handleSubmit(event, type) {
         
         // حفظ بيانات الملف
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = async function(e) {
             fileData = {
                 name: file.name,
                 type: file.type,
@@ -195,22 +217,46 @@ function handleSubmit(event, type) {
                 data: e.target.result // base64 encoded file data
             };
             
-            // تخزين بيانات الملف في localStorage
+            // تخزين بيانات الملف في localStorage (كحل مؤقت)
             const fileId = 'file_' + Date.now();
             localStorage.setItem(fileId, JSON.stringify(fileData));
             
             // حفظ reference للملف في الblock
             const newBlock = createBlockObject(type, title, content, expiry, token, fileId);
-            saveBlockToUser(currentUser, newBlock);
             
-            showToast('File uploaded successfully! ✅');
-            setTimeout(() => {
-                window.location.href = '../dashboard/index.html';
-            }, 2000);
+            // حفظ البلوك عبر API
+            try {
+                const response = await fetch('/.netlify/functions/blocks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: currentUser.email,
+                        block: newBlock
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showToast('File uploaded successfully! ✅');
+                    setTimeout(() => {
+                        window.location.href = '../dashboard/index.html';
+                    }, 2000);
+                } else {
+                    showToast('Error uploading file: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Upload file error:', error);
+                showToast('Network error. Please try again.');
+            }
         };
         reader.readAsDataURL(file);
     }
 }
+
+
 
 function createBlockObject(type, title, content, expiry, token, fileId = null) {
     const expiryDate = calculateExpiryDate(expiry);
