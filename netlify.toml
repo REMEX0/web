@@ -2,17 +2,16 @@
   publish = "."
   functions = "netlify/functions"
 
-
-
 [functions]
   node_bundler = "esbuild"
+  external_node_modules = ["mongodb"]
 
 [build.environment]
   NODE_VERSION = "18"
 
-# إعدادات البيئة - استبدل اسم_قاعدة_البيانات_الخاصة_بك باسم قاعدة البيانات الفعلي
+# إعدادات البيئة (Production)
 [context.production.environment]
-  MONGODB_URI = "mongodb+srv://stararmx_db_user:mOJAN8MDZCrYeoAj@cluster0.kvpxrlu.mongodb.net/myapp?retryWrites=true&w=majority&appName=Cluster0"
+  MONGODB_URI = "mongodb+srv://stararmx:mOJAN8MDZCrYeoAj@cluster0.kvpxrlu.mongodb.net/myapp?retryWrites=true&w=majority&appName=Cluster0"
   NODE_ENV = "production"
 
 [context.deploy-preview.environment]
@@ -61,11 +60,10 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# إعدادات معالجة Forms
+# إعدادات API (CORS)
 [[headers]]
   for = "/api/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-
     Access-Control-Allow-Headers = "Content-Type, Authorization"
