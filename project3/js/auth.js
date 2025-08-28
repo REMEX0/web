@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const blocksContainer = document.getElementById('blocks-container');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        window.location.href = 'dashboard/index.html';
+        return;
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const toggleForm = document.getElementById('toggle-form');
@@ -94,4 +99,5 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Network error. Please try again.');
         }
     });
+
 });
